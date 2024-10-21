@@ -45,9 +45,7 @@ jobs:
         timeout-minutes: 120
         run: |
           compile_target=${{ matrix.target }}
-
           compile_features="-f full-extra"
-
           cd build
           ./build-release -t ${{ matrix.target }} $compile_features $compile_compress
 
