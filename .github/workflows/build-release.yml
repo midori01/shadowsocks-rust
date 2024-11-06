@@ -52,5 +52,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/release/*
+          files: build/release/*.tar.xz
           tag_name: ${{ inputs.tag || github.ref_name }}
