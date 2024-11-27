@@ -31,21 +31,20 @@ jobs:
       - name: Install Rust
         run: |
           rustup set profile minimal
-          rustup toolchain install stable
-          rustup default stable
-          rustup override set stable
-          rustup target add --toolchain stable ${{ matrix.target }}
+          rustup toolchain install ${{ matrix.platform.toolchain }}
+          rustup default ${{ matrix.platform.toolchain }}
+          rustup override set ${{ matrix.platform.toolchain }}
 
       - name: Install cross
         run: cargo install cross
 
-      - name: Build ${{ matrix.target }}
+      - name: Build ${{ matrix.platform.target }}
         timeout-minutes: 120
         run: |
           compile_target=${{ matrix.target }}
           compile_features="-f full-extra"
           cd build
-          ./build-release -t ${{ matrix.target }} $compile_features $compile_compress
+          ./build-release -t ${{ matrix.platform.target }} $compile_features $compile_compress $compile_nightly $compile_features
 
       - name: Upload Github Assets
         uses: softprops/action-gh-release@v2
