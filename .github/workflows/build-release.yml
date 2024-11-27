@@ -21,10 +21,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target:
-          - x86_64-unknown-linux-gnu
+        platform::
+          - target: x86_64-unknown-linux-gnu
             toolchain: stable
-          - aarch64-unknown-linux-gnu
+          - target: aarch64-unknown-linux-gnu
             toolchain: stable
 
     steps:
