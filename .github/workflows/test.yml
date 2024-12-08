@@ -3,7 +3,7 @@ name: Test
 on:
   push:
     tags:
-      - t*
+      - minimal
   workflow_dispatch:
     inputs:
       tag:
@@ -53,7 +53,7 @@ jobs:
         run: |
           mkdir -p build/release
           cp target/${{ matrix.platform.target }}/release/ssserver \
-             build/release/ssserver-${{ matrix.platform.target.short_name }}
+             build/release/ssserver-${{ matrix.platform.short_name }}
 
       - name: Upload Binary
         uses: softprops/action-gh-release@v2
