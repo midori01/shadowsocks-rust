@@ -23,14 +23,12 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - target: x86_64-unknown-linux-gnu
-            toolchain: stable
-          - target: aarch64-unknown-linux-gnu
-            toolchain: stable
           - target: x86_64-unknown-linux-musl
             toolchain: stable
+            short_name: linux-amd64
           - target: aarch64-unknown-linux-musl
             toolchain: stable
+            short_name: linux-arm64
 
     steps:
       - uses: actions/checkout@v4
@@ -55,7 +53,7 @@ jobs:
         run: |
           mkdir -p build/release
           cp target/${{ matrix.platform.target }}/release/ssserver \
-             build/release/ssserver-${{ matrix.platform.target }}
+             build/release/ssserver-${{ matrix.platform.target.short_name }}
 
       - name: Upload Binary
         uses: softprops/action-gh-release@v2
