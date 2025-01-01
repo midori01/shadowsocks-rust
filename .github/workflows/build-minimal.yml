@@ -47,7 +47,7 @@ jobs:
         run: |
           cross build --release \
             --target ${{ matrix.platform.target }} \
-            --no-default-features --features server tcmalloc
+            --no-default-features --features "server tcmalloc"
           strip target/${{ matrix.platform.target }}/release/ssserver
 
       - name: Rename Binary
