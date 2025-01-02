@@ -46,8 +46,6 @@ jobs:
 
       - name: Build ${{ matrix.platform.target }}
         timeout-minutes: 120
-        env:
-          CARGO_PROFILE_RELEASE_STRIP: "true"
         run: |
           compile_target=${{ matrix.platform.target }}
           compile_features="-f full-extra"
