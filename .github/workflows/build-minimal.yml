@@ -44,11 +44,12 @@ jobs:
         run: cargo install cross
 
       - name: Build Binary
+        env:
+          CARGO_PROFILE_RELEASE_STRIP: "true"
         run: |
           cross build --release \
             --target ${{ matrix.platform.target }} \
             --no-default-features --features server
-          strip target/${{ matrix.platform.target }}/release/ssserver
 
       - name: Rename Binary
         run: |
