@@ -52,7 +52,7 @@ lto = "fat"
 codegen-units = 1
 incremental = false
 panic = "abort"
-strip = true
+strip = false
 
 [features]
 default = [
