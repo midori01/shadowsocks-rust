@@ -47,7 +47,7 @@ jobs:
         run: |
           cross build --release \
             --target ${{ matrix.platform.target }} \
-            --no-default-features --features "server tcmalloc-vendored"
+            --no-default-features --features "server tcmalloc tcmalloc-vendored"
 
       - name: Rename Binary
         run: |
