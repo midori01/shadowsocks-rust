@@ -10,13 +10,10 @@ keywords = ["shadowsocks", "proxy", "socks", "socks5", "firewall"]
 license = "MIT"
 edition = "2021"
 rust-version = "1.80"
-
 [badges]
 maintenance = { status = "passively-maintained" }
-
 [features]
 default = []
-
 full = [
     "local",
     "server",
@@ -28,7 +25,6 @@ full = [
     "local-socks4",
     "aead-cipher",
 ]
-
 local = ["httparse"]
 server = []
 manager = ["server"]
