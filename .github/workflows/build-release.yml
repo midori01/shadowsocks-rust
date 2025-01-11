@@ -1,5 +1,8 @@
 name: Build Releases
 on:
+  push:
+    tags:
+      - v*midori*
   workflow_dispatch:
     inputs:
       tag:
