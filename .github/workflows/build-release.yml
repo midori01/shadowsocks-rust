@@ -2,7 +2,7 @@ name: Build Releases
 on:
   push:
     tags:
-      - v*
+      - v*[!minimal]
   workflow_dispatch:
     inputs:
       tag:
