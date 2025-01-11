@@ -1,8 +1,5 @@
 name: Build Releases
 on:
-  push:
-    tags:
-      - v*[!minimal]
   workflow_dispatch:
     inputs:
       tag:
