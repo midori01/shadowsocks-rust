@@ -30,7 +30,7 @@ jobs:
             toolchain: stable
           - target: aarch64-unknown-linux-musl
             toolchain: stable
-  
+
     steps:
       - uses: actions/checkout@v4
 
