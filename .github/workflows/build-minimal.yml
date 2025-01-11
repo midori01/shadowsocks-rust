@@ -3,7 +3,7 @@ name: Build Minimal
 on:
   push:
     tags:
-      - minimal
+      - v*minimal
   workflow_dispatch:
     inputs:
       tag:
