@@ -94,10 +94,6 @@ winservice = ["service", "windows-service"]
 hickory-dns = ["shadowsocks-service/hickory-dns"]
 trust-dns = ["hickory-dns"]
 dns-over-tls = ["shadowsocks-service/dns-over-tls"]
-dns-over-native-tls = ["shadowsocks-service/dns-over-native-tls"]
-dns-over-native-tls-vendored = [
-    "shadowsocks-service/dns-over-native-tls-vendored",
-]
 dns-over-https = ["shadowsocks-service/dns-over-https"]
 dns-over-h3 = ["shadowsocks-service/dns-over-h3"]
 logging = ["log4rs", "tracing", "tracing-subscriber", "time"]

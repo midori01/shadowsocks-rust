@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks"
-version = "1.23.0-midori-feb08"
+version = "1.23.0-midori-feb13"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -61,7 +61,7 @@ tokio = { version = "1.9.0", features = [
     "sync",
     "time",
 ] }
-hickory-resolver = { version = "=0.25.0-alpha.4", optional = true }
+hickory-resolver = { version = "=0.25.0-alpha.5", optional = true }
 arc-swap = { version = "1.7", optional = true }
 notify = { version = "8.0", optional = true }
 aes = { version = "0.8", optional = true }
