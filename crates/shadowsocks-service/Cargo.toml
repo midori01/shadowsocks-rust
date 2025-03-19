@@ -8,8 +8,8 @@ readme = "README.md"
 documentation = "https://docs.rs/shadowsocks-service"
 keywords = ["shadowsocks", "proxy", "socks", "socks5", "firewall"]
 license = "MIT"
-edition = "2021"
-rust-version = "1.83"
+edition = "2024"
+rust-version = "1.85"
 [badges]
 maintenance = { status = "passively-maintained" }
 [features]
@@ -32,15 +32,15 @@ hickory-dns = ["hickory-resolver", "shadowsocks/trust-dns"]
 trust-dns = ["hickory-dns"]
 dns-over-tls = [
     "hickory-dns",
-    "hickory-resolver/dns-over-rustls",
+    "hickory-resolver/tls-ring",
     "hickory-resolver/webpki-roots",
 ]
 dns-over-https = [
     "hickory-dns",
-    "hickory-resolver/dns-over-https-rustls",
+    "hickory-resolver/https-ring",
     "hickory-resolver/webpki-roots",
 ]
-dns-over-h3 = ["hickory-dns", "hickory-resolver/dns-over-h3"]
+dns-over-h3 = ["hickory-dns", "hickory-resolver/h3-ring"]
 local-dns = ["local", "hickory-dns"]
 local-dns-relay = ["local-dns"]
 local-flow-stat = ["local"]
@@ -61,7 +61,7 @@ local-redir = ["local"]
 local-tunnel = ["local"]
 local-socks4 = ["local"]
 local-tun = ["local", "etherparse", "tun", "smoltcp"]
-local-fake-dns = ["local", "trust-dns", "sled", "bson"]
+local-fake-dns = ["local", "trust-dns", "rocksdb", "bson"]
 local-online-config = [
     "local",
     "local-http",
@@ -93,7 +93,7 @@ bytes = "1.7"
 byte_string = "1.0"
 byteorder = "1.5"
 rand = { version = "0.9", features = ["small_rng"] }
-sled = { version = "0.34.7", optional = true }
+rocksdb = { version = "0.23", optional = true }
 futures = "0.3"
 tokio = { version = "1.38", features = [
     "io-util",
@@ -120,7 +120,7 @@ hyper = { version = "1.4", optional = true, features = ["full"] }
 http-body-util = { version = "0.1", optional = true }
 http = { version = "1.1", optional = true }
 httparse = { version = "1.9", optional = true }
-hickory-resolver = { version = "=0.25.0-alpha.5", optional = true, features = [
+hickory-resolver = { version = "0.25", optional = true, features = [
     "serde",
 ] }
 idna = "1.0"

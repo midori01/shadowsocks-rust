@@ -13,23 +13,23 @@ use bytes::Bytes;
 use futures::future;
 use log::{debug, error, trace, warn};
 use lru_time_cache::LruCache;
-use rand::{rngs::SmallRng, Rng, SeedableRng};
+use rand::{Rng, SeedableRng, rngs::SmallRng};
 use tokio::{sync::mpsc, task::JoinHandle, time};
 
 use shadowsocks::{
     lookup_then,
     net::{AddrFamily, UdpSocket as ShadowUdpSocket},
     relay::{
-        udprelay::{options::UdpSocketControlData, ProxySocket, MAXIMUM_UDP_PAYLOAD_SIZE},
         Address,
+        udprelay::{MAXIMUM_UDP_PAYLOAD_SIZE, ProxySocket, options::UdpSocketControlData},
     },
 };
 
 use crate::{
     local::{context::ServiceContext, loadbalancing::PingBalancer},
     net::{
-        packet_window::PacketWindowFilter, MonProxySocket, UDP_ASSOCIATION_KEEP_ALIVE_CHANNEL_SIZE,
-        UDP_ASSOCIATION_SEND_CHANNEL_SIZE,
+        MonProxySocket, UDP_ASSOCIATION_KEEP_ALIVE_CHANNEL_SIZE, UDP_ASSOCIATION_SEND_CHANNEL_SIZE,
+        packet_window::PacketWindowFilter,
     },
 };
 
@@ -615,23 +615,26 @@ where
         self.keepalive_flag = true;
 
         // Send back to client
-        if let Err(err) = self.respond_writer.send_to(self.peer_addr, addr, data).await {
-            warn!(
-                "udp failed to send back {} bytes to client {}, from target {} ({}), error: {}",
-                data.len(),
-                self.peer_addr,
-                addr,
-                if bypassed { "bypassed" } else { "proxied" },
-                err
-            );
-        } else {
-            trace!(
-                "udp relay {} <- {} ({}) with {} bytes",
-                self.peer_addr,
-                addr,
-                if bypassed { "bypassed" } else { "proxied" },
-                data.len()
-            );
+        match self.respond_writer.send_to(self.peer_addr, addr, data).await {
+            Err(err) => {
+                warn!(
+                    "udp failed to send back {} bytes to client {}, from target {} ({}), error: {}",
+                    data.len(),
+                    self.peer_addr,
+                    addr,
+                    if bypassed { "bypassed" } else { "proxied" },
+                    err
+                );
+            }
+            Ok(..) => {
+                trace!(
+                    "udp relay {} <- {} ({}) with {} bytes",
+                    self.peer_addr,
+                    addr,
+                    if bypassed { "bypassed" } else { "proxied" },
+                    data.len()
+                );
+            }
         }
     }
 }
