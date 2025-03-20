@@ -62,5 +62,3 @@ jobs:
         with:
           files: build/release/ssserver-*
           tag_name: ${{ inputs.tag || github.ref_name }}
-
-这是完整workflow 怎么修改
