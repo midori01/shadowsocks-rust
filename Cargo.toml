@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks-rust"
-version = "1.23.1-midori-mar28"
+version = "1.23.1-midori-apr02"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
