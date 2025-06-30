@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks-rust"
-version = "1.23.4-midori-jun27"
+version = "1.23.4-midori-jun30"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -116,7 +116,6 @@ local-tun = ["local", "shadowsocks-service/local-tun", "ipnet"]
 local-fake-dns = ["local", "shadowsocks-service/local-fake-dns", "ipnet"]
 local-online-config = [
     "local",
-    "mime",
     "shadowsocks-service/local-online-config",
 ]
 utility-url-outline = ["reqwest"]
@@ -190,3 +189,5 @@ byteorder = "1.5"
 env_logger = "0.11"
 byte_string = "1.0"
 tokio = { version = "1", features = ["net", "time", "macros", "io-util"] }
+[lints.clippy]
+uninlined_format_args = "allow"
