@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks"
-version = "1.23.4-midori-jun30"
+version = "1.23.5-midori-jul07"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -50,7 +50,7 @@ futures = "0.3"
 trait-variant = "0.1"
 dynosaur = "0.2.0"
 sealed = "0.6"
-socket2 = { version = "0.5", features = ["all"] }
+socket2 = { version = "0.6", features = ["all"] }
 tokio = { version = "1.9.0", features = [
     "io-util",
     "macros",
@@ -68,7 +68,7 @@ aes = { version = "0.8", optional = true }
 blake3 = "1.5"
 shadowsocks-crypto = { version = "0.6.0", default-features = false }
 [target.'cfg(any(windows, target_os = "linux", target_os = "android", target_os = "freebsd", target_os = "macos", target_os = "ios", target_os = "watchos", target_os = "tvos"))'.dependencies]
-tokio-tfo = "0.3"
+tokio-tfo = "0.4"
 [target.'cfg(windows)'.dependencies]
 windows-sys = { version = "0.60", features = [
     "Win32_Foundation",

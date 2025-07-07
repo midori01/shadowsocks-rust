@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks-rust"
-version = "1.23.4-midori-jun30"
+version = "1.23.5-midori-jul07"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -114,10 +114,7 @@ local-tunnel = ["local", "shadowsocks-service/local-tunnel"]
 local-socks4 = ["local", "shadowsocks-service/local-socks4"]
 local-tun = ["local", "shadowsocks-service/local-tun", "ipnet"]
 local-fake-dns = ["local", "shadowsocks-service/local-fake-dns", "ipnet"]
-local-online-config = [
-    "local",
-    "shadowsocks-service/local-online-config",
-]
+local-online-config = ["local", "shadowsocks-service/local-online-config"]
 utility-url-outline = ["reqwest"]
 jemalloc = ["jemallocator"]
 tcmalloc-vendored = ["tcmalloc/bundled"]
