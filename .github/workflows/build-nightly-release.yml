@@ -1,8 +1,3 @@
-name: Build Nightly Releases
-on:
-  push:
-    branches: [master]
-  workflow_dispatch:
 
 env:
   CARGO_TERM_COLOR: always
@@ -168,3 +163,4 @@ jobs:
         with:
           name: windows-native
           path: build/release/*
+

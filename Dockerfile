@@ -1,3 +1,4 @@
+
 FROM --platform=$BUILDPLATFORM rust:1.89.0-alpine3.22 AS builder
 
 ARG TARGETARCH
@@ -59,3 +60,4 @@ COPY --from=builder /root/shadowsocks-rust/docker/docker-entrypoint.sh /usr/bin/
 ENTRYPOINT [ "docker-entrypoint.sh" ]
 
 CMD [ "ssserver", "--log-without-time", "-a", "nobody", "-c", "/etc/shadowsocks-rust/config.json" ]
+
