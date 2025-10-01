@@ -96,7 +96,13 @@ trust-dns = ["hickory-dns"]
 dns-over-tls = ["shadowsocks-service/dns-over-tls"]
 dns-over-https = ["shadowsocks-service/dns-over-https"]
 dns-over-h3 = ["shadowsocks-service/dns-over-h3"]
-logging = ["log4rs", "tracing", "tracing-subscriber", "time", "tracing-appender"]
+logging = [
+    "log4rs",
+    "tracing",
+    "tracing-subscriber",
+    "time",
+    "tracing-appender",
+]
 local-dns = ["local", "shadowsocks-service/local-dns"]
 local-flow-stat = ["local", "shadowsocks-service/local-flow-stat"]
 local-http = ["local", "shadowsocks-service/local-http"]
@@ -169,7 +175,6 @@ rpmalloc = { version = "0.2", optional = true }
 shadowsocks-service = { path = "./crates/shadowsocks-service", default-features = false }
 windows-service = { version = "0.8", optional = true }
 [target.'cfg(unix)'.dependencies]
-daemonize = "0.5"
 xdg = "3.0"
 [target.'cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "aarch64"))'.dependencies]
 reqwest = { version = "0.12", features = [
