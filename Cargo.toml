@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks-rust"
-version = "1.23.5-midori-oct15"
+version = "1.23.5-midori-nov28"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -98,6 +98,7 @@ dns-over-https = ["shadowsocks-service/dns-over-https"]
 dns-over-h3 = ["shadowsocks-service/dns-over-h3"]
 logging = [
     "log4rs",
+    "syslog-tracing",
     "tracing",
     "tracing-subscriber",
     "time",
@@ -151,7 +152,7 @@ tracing-subscriber = { version = "0.3", optional = true, features = [
 tracing-appender = { version = "0.2.3", optional = true, default-features = false }
 time = { version = "0.3", optional = true }
 serde = { version = "1.0", features = ["derive"] }
-json5 = "0.4"
+serde_json5 = "0.2"
 thiserror = "2.0"
 base64 = "0.22"
 mime = { version = "0.3", optional = true }
@@ -176,6 +177,7 @@ shadowsocks-service = { path = "./crates/shadowsocks-service", default-features 
 windows-service = { version = "0.8", optional = true }
 [target.'cfg(unix)'.dependencies]
 xdg = "3.0"
+syslog-tracing = { version = "0.3", optional = true }
 [target.'cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "aarch64"))'.dependencies]
 reqwest = { version = "0.12", features = [
     "blocking",
