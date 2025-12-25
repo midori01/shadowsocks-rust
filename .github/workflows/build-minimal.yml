@@ -1,8 +1,9 @@
-name: Build Releases
+name: Build Minimal
+
 on:
   push:
     tags:
-      - v*midori*
+      - v*minimal*
   workflow_dispatch:
     inputs:
       tag:
@@ -14,7 +15,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build-release-cross:
+  build-cross:
     runs-on: ubuntu-latest
     env:
       RUST_BACKTRACE: full
@@ -22,23 +23,15 @@ jobs:
       fail-fast: false
       matrix:
         platform:
-          - target: x86_64-unknown-linux-gnu
-            toolchain: stable
-          - target: aarch64-unknown-linux-gnu
-            toolchain: stable
           - target: x86_64-unknown-linux-musl
             toolchain: stable
+            short_name: linux-amd64
           - target: aarch64-unknown-linux-musl
             toolchain: stable
+            short_name: linux-arm64
 
     steps:
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
-
-      - name: Install LLVM and Clang
-        run: sudo apt update && sudo apt install -y clang
-
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v4
 
       - name: Install Rust
         run: |
@@ -47,21 +40,25 @@ jobs:
           rustup default ${{ matrix.platform.toolchain }}
           rustup override set ${{ matrix.platform.toolchain }}
 
-      - name: Install cross
-        run: cargo install cross --git https://github.com/cross-rs/cross
+      - name: Install Cross
+        run: cargo install cross
 
-      - name: Build ${{ matrix.platform.target }}
-        timeout-minutes: 120
+      - name: Build Binary
         run: |
-          compile_target=${{ matrix.platform.target }}
-          compile_features="-f full-extra"
-          cd build
-          ./build-release -t ${{ matrix.platform.target }} $compile_features $compile_compress $compile_nightly $compile_cargo_flags
+          cross build --release \
+            --target ${{ matrix.platform.target }} \
+            --no-default-features --features server
 
-      - name: Upload Github Assets
+      - name: Rename Binary
+        run: |
+          mkdir -p build/release
+          cp target/${{ matrix.platform.target }}/release/ssserver \
+             build/release/ssserver-${{ matrix.platform.short_name }}
+
+      - name: Upload Binary
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: build/release/*.tar.xz
+          files: build/release/ssserver-*
           tag_name: ${{ inputs.tag || github.ref_name }}
