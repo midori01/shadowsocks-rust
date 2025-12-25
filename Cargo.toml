@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks-rust"
-version = "1.23.5-midori-nov28"
+version = "1.24.0-midori-dec25"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -9,7 +9,7 @@ documentation = "https://docs.rs/shadowsocks-rust"
 keywords = ["shadowsocks", "proxy", "socks", "socks5", "firewall"]
 license = "MIT"
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.88"
 [badges]
 maintenance = { status = "passively-maintained" }
 [[bin]]
@@ -98,11 +98,11 @@ dns-over-https = ["shadowsocks-service/dns-over-https"]
 dns-over-h3 = ["shadowsocks-service/dns-over-h3"]
 logging = [
     "log4rs",
-    "syslog-tracing",
     "tracing",
     "tracing-subscriber",
     "time",
     "tracing-appender",
+    "tracing-syslog",
 ]
 local-dns = ["local", "shadowsocks-service/local-dns"]
 local-flow-stat = ["local", "shadowsocks-service/local-flow-stat"]
@@ -138,6 +138,7 @@ security-replay-attack-detect = [
 replay-attack-detect = [
     "security-replay-attack-detect",
 ]
+tracing-syslog = ["dep:syslog-tracing"]
 [dependencies]
 log = "0.4"
 log4rs = { version = "1.2", optional = true }
@@ -150,9 +151,10 @@ tracing-subscriber = { version = "0.3", optional = true, features = [
     "local-time",
 ] }
 tracing-appender = { version = "0.2.3", optional = true, default-features = false }
+syslog-tracing = { version = "0.3", optional = true }
 time = { version = "0.3", optional = true }
 serde = { version = "1.0", features = ["derive"] }
-serde_json5 = "0.2"
+json5 = "1.3"
 thiserror = "2.0"
 base64 = "0.22"
 mime = { version = "0.3", optional = true }
@@ -177,7 +179,6 @@ shadowsocks-service = { path = "./crates/shadowsocks-service", default-features 
 windows-service = { version = "0.8", optional = true }
 [target.'cfg(unix)'.dependencies]
 xdg = "3.0"
-syslog-tracing = { version = "0.3", optional = true }
 [target.'cfg(any(target_arch = "x86", target_arch = "x86_64", target_arch = "aarch64"))'.dependencies]
 reqwest = { version = "0.12", features = [
     "blocking",
