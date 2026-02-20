@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks-service"
-version = "1.24.0-midori-dec25"
+version = "1.24.0-midori-feb20"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -91,7 +91,7 @@ lru_time_cache = "0.11"
 bytes = "1.7"
 byte_string = "1.0"
 byteorder = "1.5"
-rand = { version = "0.9", features = ["small_rng"] }
+rand = "0.10"
 rocksdb = { version = "0.24", optional = true }
 futures = "0.3"
 tokio = { version = "1.38", features = [
@@ -151,7 +151,7 @@ serde_json = "1.0"
 bson = { version = "3.0.0", features = ["serde"], optional = true }
 shadowsocks = { path = "../shadowsocks", default-features = false }
 [target.'cfg(any(target_os = "macos", target_os = "ios", target_os = "freebsd", target_os = "openbsd"))'.dependencies]
-nix = { version = "0.30", features = ["ioctl"] }
+nix = { version = "0.31", features = ["ioctl"] }
 [target.'cfg(windows)'.dependencies]
 windows-sys = { version = "0.61", features = ["Win32_Networking_WinSock"] }
 [target.'cfg(any(target_os = "ios", target_os = "macos", target_os = "linux", target_os = "android", target_os = "windows", target_os = "freebsd"))'.dependencies]
