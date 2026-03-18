@@ -1,9 +1,3 @@
-name: Build Docker Images
-on:
-  push:
-    tags:
-      - v*
-  workflow_dispatch:
 
 jobs:
   build-docker-image:
