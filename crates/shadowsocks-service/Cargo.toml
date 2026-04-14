@@ -1,6 +1,6 @@
 [package]
 name = "shadowsocks-service"
-version = "1.24.0-midori-mar06"
+version = "1.25.0-midori-apr14"
 authors = ["Shadowsocks Contributors"]
 description = "shadowsocks is a fast tunnel proxy that helps you bypass firewalls."
 repository = "https://github.com/midori01/shadowsocks-rust"
@@ -9,7 +9,8 @@ documentation = "https://docs.rs/shadowsocks-service"
 keywords = ["shadowsocks", "proxy", "socks", "socks5", "firewall"]
 license = "MIT"
 edition = "2024"
-rust-version = "1.88"
+rust-version = "1.91"
+
 [badges]
 maintenance = { status = "passively-maintained" }
 [features]
@@ -44,7 +45,8 @@ dns-over-h3 = ["hickory-dns", "hickory-resolver/h3-ring"]
 local-dns = ["local", "hickory-dns"]
 local-dns-relay = ["local-dns"]
 local-flow-stat = ["local"]
-local-http = ["local", "hyper", "http", "http-body-util", "base64"]
+# Enable HTTP protocol for sslocal
+local-http = ["local", "hyper", "http", "http-body-util"]
 local-http-native-tls = ["local-http", "tokio-native-tls", "native-tls"]
 local-http-native-tls-vendored = [
     "local-http-native-tls",
@@ -131,9 +133,10 @@ mime = { version = "0.3", optional = true }
 flate2 = { version = "1.0", optional = true }
 brotli = { version = "8.0", optional = true }
 zstd = { version = "0.13", optional = true }
-base64 = { version = "0.22", optional = true }
+base64 = { version = "0.22" }
+
 etherparse = { version = "0.19", optional = true }
-smoltcp = { version = "0.12", optional = true, default-features = false, features = [
+smoltcp = { version = "0.13", optional = true, default-features = false, features = [
     "std",
     "log",
     "medium-ip",
