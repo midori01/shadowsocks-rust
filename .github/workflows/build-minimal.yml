@@ -1,0 +1,64 @@
+name: Build Minimal
+
+on:
+  push:
+    tags:
+      - v*minimal*
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release Tag'
+        required: true
+        type: string
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build-cross:
+    runs-on: ubuntu-latest
+    env:
+      RUST_BACKTRACE: full
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - target: x86_64-unknown-linux-musl
+            toolchain: stable
+            short_name: linux-amd64
+          - target: aarch64-unknown-linux-musl
+            toolchain: stable
+            short_name: linux-arm64
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust
+        run: |
+          rustup set profile minimal
+          rustup toolchain install ${{ matrix.platform.toolchain }}
+          rustup default ${{ matrix.platform.toolchain }}
+          rustup override set ${{ matrix.platform.toolchain }}
+
+      - name: Install Cross
+        run: cargo install cross
+
+      - name: Build Binary
+        run: |
+          cross build --release \
+            --target ${{ matrix.platform.target }} \
+            --no-default-features --features server
+
+      - name: Rename Binary
+        run: |
+          mkdir -p build/release
+          cp target/${{ matrix.platform.target }}/release/ssserver \
+             build/release/ssserver-${{ matrix.platform.short_name }}
+
+      - name: Upload Binary
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: build/release/ssserver-*
+          tag_name: ${{ inputs.tag || github.ref_name }}
